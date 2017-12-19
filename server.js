@@ -88,7 +88,7 @@ app.post('/merge', (req, res) => {
 		        		res.sendStatus(500)})
 	        	}
 	        })
-    	}, 3000);
+    	}, 300);
 
 
         
