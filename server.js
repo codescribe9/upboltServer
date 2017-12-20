@@ -44,19 +44,19 @@ app.listen(9091, function () {
 
 
 app.post('/up', upload.single('file'), (req, res) => {
-        
-        //res.send({ id: data.$loki, fileName: data.filename, originalName: data.originalname });
-        //res.sendStatus(400);
+                
         //console.log('File uploaded' + req.file)
-        res.sendStatus(200);
+        res.sendStatus(204).end();
 })
 
 
 
 app.post('/merge', (req, res) => {
 		
-        var guid = req.body.guid;
-        var fileName = req.body.fileName;
+		var guid = req.body.guid;
+		var startTime = new Date(req.body.startTime);
+		var fileName = req.body.fileName;
+		
         var outputFilePath = 'uploads/' + fileName;
         var splitFilesFolderPath = 'uploads/' + guid;
 
@@ -81,6 +81,13 @@ app.post('/merge', (req, res) => {
 	        			del([splitFilesFolderPath]).then(paths => {
 						    console.log('Deleted temp files and folders:\n', paths.join('\n'));
 						});
+
+						var endTime = new Date();
+						var timeDiff = Math.abs(endTime.getTime() - startTime.getTime());
+						var diffSeconds = Math.ceil(timeDiff / (1000)); 
+						console.log(`Total upload took ${diffSeconds} seconds`);
+
+
 		        		res.sendStatus(200)
 		        	})
 		        	.catch((err) => {
@@ -88,7 +95,7 @@ app.post('/merge', (req, res) => {
 		        		res.sendStatus(500)})
 	        	}
 	        })
-    	}, 300);
+    	}, 1000);
 
 
         
