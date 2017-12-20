@@ -79,7 +79,7 @@ app.post('/merge', (req, res) => {
 		        	FileHandler.mergeFiles(files, outputFilePath)
 		        	.then(() => {
 	        			del([splitFilesFolderPath]).then(paths => {
-						    console.log('Deleted files and folders:\n', paths.join('\n'));
+						    console.log('Deleted temp files and folders:\n', paths.join('\n'));
 						});
 		        		res.sendStatus(200)
 		        	})
